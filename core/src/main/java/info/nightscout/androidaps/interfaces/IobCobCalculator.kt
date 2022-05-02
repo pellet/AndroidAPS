@@ -40,6 +40,10 @@ interface IobCobCalculator {
      */
     fun getCobInfo(waitForCalculationFinish: Boolean, reason: String): CobInfo
 
+    fun getFutureCob(): Double
+
+    fun getMostRecentCarbByDate(): Long?
+
     /**
      * Calculate IobTotal from boluses and extended boluses to now().
      * NOTE: Only isValid == true boluses are included

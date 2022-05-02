@@ -298,6 +298,18 @@ class IobCobCalculatorPlugin @Inject constructor(
         return CobInfo(timestamp, displayCob, futureCarbs)
     }
 
+    override fun getFutureCob(): Double {
+        var futureCarbs = 0.0
+        val now = dateUtil.now()
+        val carbs = repository.getCarbsDataFromTimeExpanded(now, true).blockingGet()
+        carbs.forEach { carb -> if (carb.timestamp > now) futureCarbs += carb.amount }
+        return futureCarbs
+    }
+
+    override fun getMostRecentCarbByDate(): Long? {
+        return repository.getMostRecentCarbByDate()?.timestamp
+    }
+
     override fun getMealDataWithWaitingForCalculationFinish(): MealData {
         val result = MealData()
         val now = System.currentTimeMillis()

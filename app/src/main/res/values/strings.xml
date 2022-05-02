@@ -1247,5 +1247,12 @@
     <string name="blocked_by_charging">Blocked by charging options</string>
     <string name="blocked_by_connectivity">Blocked by connectivity options</string>
 
+    <string name="openapsaismb">OpenAPS aiSMB</string>
+    <string name="key_openapsaismb_settings">OpenAPS aiSMB Settings</string>
+    <string name="description_aismb">Small micro boluses based on Artifical Intelligence and Machine Learning.</string>
+    <string name="oaps_aismb_shortname">aiSMB</string>
+    <string name="openapssmb_maxsmb_summary">The max bolus that can be given by SMB.</string>
+    <string name="key_openapssmb_max_smb">key_openapssmb_max_smb</string>
+    <string name="openapssmb_maxsmb_title">Maximum bolus for SMB [U]</string>
 
 </resources>
