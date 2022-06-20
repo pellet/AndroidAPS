@@ -117,7 +117,9 @@ class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector
         val constraintStr = " Max IOB: $maxIob \n Max SMB: $maxSMB"
         val glucoseStr = " bg: $bg \n targetBg: $targetBg \n delta: $delta \n short avg delta: $shortAvgDelta \n long avg delta: $longAvgDelta \n noise: $noise \n" +
             " accelerating_up: $accelerating_up \n deccelerating_up: $deccelerating_up \n accelerating_down: $accelerating_down \n deccelerating_down: $deccelerating_down \n stable: $stable"
-        val iobStr = " IOB: $iob \n tdd 7d: $tdd7Days - $tdd7DaysPerHour \n tdd daily: $tddDaily - $tddPerHour \n tdd 24h: $tdd24Hrs - $tdd24HrsPerHour"
+        val iobStr = " IOB: $iob \n tdd 7d: ${roundToPoint05(tdd7Days)} : ${roundToPoint05(tdd7DaysPerHour)} \n " +
+            "tdd daily: $tddDaily : ${roundToPoint05(tddPerHour)} \n " +
+            "tdd 24h: $tdd24Hrs : ${roundToPoint05(tdd24HrsPerHour)}"
         val profileStr = " Hour of day: $hourOfDay \n Weekend: $weekend \n" +
             " 5 Min Steps: $recentSteps5Minutes \n 10 Min Steps: $recentSteps10Minutes \n 15 Min Steps: $recentSteps15Minutes \n" +
             " 30 Min Steps: $recentSteps30Minutes \n 60 Min Steps: $recentSteps60Minutes \n" +
