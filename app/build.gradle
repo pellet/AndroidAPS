@@ -12,6 +12,7 @@ apply from: "${project.rootDir}/core/jacoco_global.gradle"
 repositories {
     mavenCentral()
     google()
+    jcenter()
 }
 
 allOpen {
@@ -176,9 +177,9 @@ allprojects {
 }
 
 dependencies {
-    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
-    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
+    def pytorch_version = "1.4.0"
+    implementation "org.pytorch:pytorch_android:$pytorch_version"
+    implementation "org.pytorch:pytorch_android_torchvision:$pytorch_version"
     wearApp project(':wear')
 
     implementation project(':shared')

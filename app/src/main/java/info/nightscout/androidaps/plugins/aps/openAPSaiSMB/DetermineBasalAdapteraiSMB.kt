@@ -23,11 +23,10 @@ import info.nightscout.shared.sharedPreferences.SP
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import org.tensorflow.lite.Interpreter
-import javax.inject.Inject
-import kotlin.math.min
 import java.io.File
 import java.util.*
+import javax.inject.Inject
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector: HasAndroidInjector) : DetermineBasalAdapterInterface {
@@ -93,7 +92,8 @@ class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector
     private var currentTemp = JSONObject()
     private var autosensData = JSONObject()
     private val path = File(Environment.getExternalStorageDirectory().toString())
-    private val modelFile = File(path, "AAPS/ml/model.tflite")
+    private val modelFileName = "AAPS/ml/model_1.pt"
+    private val modelFile = File(path, modelFileName)
 
     override var currentTempParam: String? = null
     override var iobDataParam: String? = null
@@ -202,11 +202,14 @@ class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector
 
     private fun calculateSMBFromModel(): Float {
         if (!modelFile.exists()) {
-            aapsLogger.error(LTag.APS, "NO Model found at AAPS/ml/model.tflite")
+            aapsLogger.error(LTag.APS, "NO Model found at $modelFileName")
             return 0.0f
         }
 
-        val interpreter = Interpreter(modelFile)
+        //@@bp
+        //val interpreter = Interpreter(modelFile)
+
+
         val modelInputs = floatArrayOf(
             hourOfDay.toFloat(), hour0_2.toFloat(), hour3_5.toFloat(), hour6_8.toFloat(), hour9_11.toFloat(),
             hour12_14.toFloat(), hour15_17.toFloat(), hour18_20.toFloat(), hour21_23.toFloat(), weekend.toFloat(),
@@ -217,8 +220,11 @@ class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector
             sleep.toFloat(), sedentary.toFloat()
         )
         val output = arrayOf(floatArrayOf(0.0f))
-        interpreter.run(modelInputs, output)
-        interpreter.close()
+
+        //@@bp
+        // interpreter.run(modelInputs, output)
+        // interpreter.close()
+
         var smbToGive = output[0][0]
         smbToGive = "%.4f".format(smbToGive.toDouble()).toFloat()
         return smbToGive
