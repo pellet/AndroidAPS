@@ -2,6 +2,7 @@ package info.nightscout.androidaps.plugins.aps.openAPSaiSMB
 
 import android.content.Context
 import android.os.Environment
+import com.say.pytorchkotlindemo.ImageClassificationOperation
 import dagger.android.HasAndroidInjector
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.data.IobTotal
@@ -20,6 +21,7 @@ import info.nightscout.androidaps.utils.stats.TddCalculator
 import info.nightscout.shared.logging.AAPSLogger
 import info.nightscout.shared.logging.LTag
 import info.nightscout.shared.sharedPreferences.SP
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -208,6 +210,7 @@ class DetermineBasalAdapteraiSMB internal constructor(context: Context, injector
 
         //@@bp
         //val interpreter = Interpreter(modelFile)
+        val interpreter = ImageClassificationOperation(modelFile, Dispatchers.IO)
 
 
         val modelInputs = floatArrayOf(
